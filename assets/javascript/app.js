@@ -20,6 +20,9 @@ function renderButtons() {
   }
 }
 
+// Calling the renderButtons function at least once to display the initial list of animals
+renderButtons();
+
 //function when "add animal" button is clicked
 $("#add-animal").on("click", function(event) {
   // event.preventDefault() prevents the form from trying to submit itself.
@@ -41,9 +44,6 @@ $("#add-animal").on("click", function(event) {
   //   $("#animal-form")[0].reset();
   document.getElementById("animal-form").reset();
 });
-
-// Calling the renderButtons function at least once to display the initial list of animals
-renderButtons();
 
 //Add an event listener to all the buttons
 $("button").on("click", function() {

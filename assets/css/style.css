@@ -1,15 +1,20 @@
-/* body {
-  background: #6485
-} */
+body {
+  background: #f5f5f5;
+}
 
 h1 {
   text-align: center;
-  color: #28a745;
+  color: #262626;
+  font-family: "Lora", serif;
 }
 
 #animals-display {
   text-align: center;
   margin-bottom: 5px;
+}
+
+.button {
+  color: #3f3f3f;
 }
 
 #animal-form {
