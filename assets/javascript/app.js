@@ -13,10 +13,13 @@ function renderButtons() {
     a.addClass("animal");
     // Adding a data-attribute with a value of the animal at index i
     a.attr("data-name", animals[i]);
+    // a.on("click", addJClickEvent);
+
     // Providing the button's text with a value of the animal at index i
     a.text(animals[i]);
     // Adding the button to the HTML
     $("#animals-display").append(a);
+    addJClickEvent();
   }
 }
 
@@ -46,47 +49,49 @@ $("#add-animal").on("click", function(event) {
 });
 
 //Add an event listener to all the buttons
-$("button").on("click", function() {
-  // Grabbing and storing the data-name property value from the button
-  var animalbutton = $(this).attr("data-name");
-  console.log(this);
-  // Constructing a queryURL using the animal name
-  var queryURL =
-    "https://api.giphy.com/v1/gifs/search?q=" +
-    animalbutton +
-    "&api_key=0MERXNy6F4I5gDJw71yI4q8X6atmKJNa";
+function addJClickEvent() {
+  $("button").on("click", function() {
+    // Grabbing and storing the data-name property value from the button
+    var animalbutton = $(this).attr("data-name");
+    console.log(this);
+    // Constructing a queryURL using the animal name
+    var queryURL =
+      "https://api.giphy.com/v1/gifs/search?q=" +
+      animalbutton +
+      "&api_key=0MERXNy6F4I5gDJw71yI4q8X6atmKJNa";
 
-  //Perform an AJAX request with the queryURL
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  })
+    //Perform an AJAX request with the queryURL
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    })
 
-    //After data comes back about the request
-    .then(function(response) {
-      console.log(queryURL);
-      console.log(response);
+      //After data comes back about the request
+      .then(function(response) {
+        console.log(queryURL);
+        console.log(response);
 
-      //Storing data from the AJAX request in the results variable
-      var results = response.data;
+        //Storing data from the AJAX request in the results variable
+        var results = response.data;
 
-      //first empty gifs-display div in html file
-      $("#gifs-display").empty();
+        //first empty gifs-display div in html file
+        $("#gifs-display").empty();
 
-      //looping through each result item
-      for (var i = 0; i < 10; i++) {
-        // //creating and storing a div tag
-        var gifsDiv = $("<div>");
+        //looping through each result item
+        for (var i = 0; i < 10; i++) {
+          // //creating and storing a div tag
+          var gifsDiv = $("<div>");
 
-        //creating and storing an img tag
-        var animalGif = $("<img>");
+          //creating and storing an img tag
+          var animalGif = $("<img>");
 
-        //setting the src attribute of the image to the property pulled off the results item
-        animalGif.attr("src", results[i].images.fixed_height.url);
-        //appending the image tag to the gifs div
-        gifsDiv.append(animalGif);
-        //prepending the gifsDiv to the HTML page in the "#gifs-display" div
-        $("#gifs-display").prepend(animalGif);
-      }
-    });
-});
+          //setting the src attribute of the image to the property pulled off the results item
+          animalGif.attr("src", results[i].images.fixed_height.url);
+          //appending the image tag to the gifs div
+          gifsDiv.append(animalGif);
+          //prepending the gifsDiv to the HTML page in the "#gifs-display" div
+          $("#gifs-display").prepend(animalGif);
+        }
+      });
+  });
+}
