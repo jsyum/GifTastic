@@ -81,7 +81,8 @@ function addJClickEvent() {
         for (var i = 0; i < 10; i++) {
           // //creating and storing a div tag
           var gifsDiv = $("<div>");
-          var rating = $("<text>");
+          var ratingDiv = $("<div>");
+          var ratingText = $("<text>");
           //creating and storing an img tag
           var animalGif = $("<img>");
           //adding "playstate" attribute, originally defined as "still"
@@ -89,12 +90,14 @@ function addJClickEvent() {
           //setting the src attribute of the image to the property pulled off the results item
           animalGif.attr("src", results[i].images.fixed_height_still.url);
           //Add rating to each newly created image
-          rating.text("rating: " + results[i].rating);
+          ratingText.text("rating: " + results[i].rating);
+          //
+          ratingDiv.append(ratingText);
           console.log(results[i].rating);
           //appending the image tag to the gifs div
           gifsDiv.append(animalGif);
           //prepending the gifsDiv to the HTML page in the "#gifs-display" div
-          $("#gifs-display").prepend(rating, animalGif);
+          $("#gifs-display").prepend(ratingDiv, animalGif);
           //adding onclick event to change source attribute from gif to still image
           $("img").on("click", function() {
             if ((this.playstate = "still")) {
