@@ -84,14 +84,55 @@ function addJClickEvent() {
 
           //creating and storing an img tag
           var animalGif = $("<img>");
-
+          //adding "playstate" attribute, originally defined as "still"
+          animalGif.attr("playstate", "still");
           //setting the src attribute of the image to the property pulled off the results item
-          animalGif.attr("src", results[i].images.fixed_height.url);
+          animalGif.attr("src", results[i].images.fixed_height_still.url);
           //appending the image tag to the gifs div
           gifsDiv.append(animalGif);
           //prepending the gifsDiv to the HTML page in the "#gifs-display" div
           $("#gifs-display").prepend(animalGif);
+          //adding onclick event to change source attribute from gif to still image
+          $("img").on("click", function() {
+            if ((this.playstate = "still")) {
+              console.log(this);
+              for (var i = 0; i < 10; i++) {
+                this.src = results[i].images.fixed_height.url;
+                this.playstate = "animate";
+                console.log(this.playstate);
+              }
+            } else {
+              this.src = results[i].images.fixed_height_still.url;
+              this.playstate = "still";
+            }
+          });
         }
       });
   });
 }
+
+$("img").on("click", function() {
+  if ((this.playstate = "still")) {
+    console.log(this);
+    this.src = results[i].images.fixed_height.url;
+    this.playstate = "animate";
+  } else {
+    this.src = results[i].images.fixed_height_still.url;
+    this.playstate = "still";
+  }
+});
+
+// $("img").on("click", function() {
+//   console.log($(this));
+//   animalGif.attr("src", results[i].images.fixed_height.url);
+//   console.log([i]);
+//   animalGif.attr("playstate", "animate");
+
+// animalGif.attr(onclick, change());
+// function change() {
+//   if ($("img").src == "results[i].images.fixed_height.url") {
+//     $("img").src = "results[i].images.fixed_height_still.url";
+//   } else {
+//     $("img").src == "results[i].images.fixed_height.url";
+//   }
+// }
