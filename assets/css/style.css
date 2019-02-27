@@ -8,6 +8,11 @@ h1 {
   font-family: "Lora", serif;
 }
 
+h3 {
+  text-align: center;
+  color: #262626;
+  font-family: "Lora", serif;
+}
 #animals-display {
   text-align: center;
   margin-bottom: 5px;
