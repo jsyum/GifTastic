@@ -102,25 +102,25 @@ function addJClickEvent() {
           gifsDiv.append(animalGif);
           //prepending the gifsDiv to the HTML page in the "#gifs-display" div
           $("#gifs-display").prepend(ratingDiv, animalGif);
-
-          //When any still gifs are clicked in #gifs-display, then they animate
-          $("img").on("click", function(event) {
-            event.preventDefault();
-
-            // gets the current state of the clicked gif
-            var state = $(this).attr("playstate");
-            console.log(this);
-
-            // according to the current state gifs toggle between animate and still
-            if (state === "still") {
-              $(this).attr("src", $(this).attr("moving"));
-              $(this).attr("playstate", "animate");
-            } else {
-              $(this).attr("src", $(this).attr("notmoving"));
-              $(this).attr("playstate", "still");
-            }
-          });
         }
       });
   });
 }
+
+//When any still gifs are clicked in #gifs-display, then they animate
+$("#gifs-display").on("click", ".gif", function(event) {
+  event.preventDefault();
+
+  // gets the current state of the clicked gif
+  var state = $(this).attr("playstate");
+  console.log(this);
+
+  // according to the current state gifs toggle between animate and still
+  if (state === "still") {
+    $(this).attr("src", $(this).attr("moving"));
+    $(this).attr("playstate", "animate");
+  } else {
+    $(this).attr("src", $(this).attr("notmoving"));
+    $(this).attr("playstate", "still");
+  }
+});
