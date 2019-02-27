@@ -90,7 +90,7 @@ function addJClickEvent() {
           //setting the src attribute of the image to the property pulled off the results item
           animalGif.attr("src", results[i].images.fixed_height_still.url);
           animalGif.attr("notmoving", results[i].images.fixed_height_still.url);
-          animalGif.attr("animate", results[i].images.fixed_height.url);
+          animalGif.attr("moving", results[i].images.fixed_height.url);
           animalGif.addClass("gif");
 
           //Add rating to each newly created image
@@ -104,59 +104,23 @@ function addJClickEvent() {
           $("#gifs-display").prepend(ratingDiv, animalGif);
 
           //When any still gifs are clicked in #gifs-display, then they animate
-          $("#gifs-display").on("click", ".gif", function() {
-            console.log(this);
+          $("img").on("click", function(event) {
+            event.preventDefault();
+
+            // gets the current state of the clicked gif
             var state = $(this).attr("playstate");
+            console.log(this);
+
+            // according to the current state gifs toggle between animate and still
             if (state === "still") {
-              $(this).attr("src", $(this).attr("animate"));
+              $(this).attr("src", $(this).attr("moving"));
               $(this).attr("playstate", "animate");
             } else {
               $(this).attr("src", $(this).attr("notmoving"));
               $(this).attr("playstate", "still");
             }
           });
-
-          // //adding onclick event to change source attribute from gif to still image
-          // $("img").on("click", function() {
-          //   if ((this.playstate = "still")) {
-          //     console.log(this);
-          //     for (var i = 0; i < 10; i++) {
-          //       this.src = results[i].images.fixed_height.url;
-          //       this.playstate = "animate";
-          //       console.log(this.playstate);
-          //     }
-          //   } else {
-          //     this.src = results[i].images.fixed_height_still.url;
-          //     this.playstate = "still";
-          //   }
-          // });
         }
       });
   });
 }
-
-// $("img").on("click", function() {
-//   if ((this.playstate = "still")) {
-//     console.log(this);
-//     this.src = results[i].images.fixed_height.url;
-//     this.playstate = "animate";
-//   } else {
-//     this.src = results[i].images.fixed_height_still.url;
-//     this.playstate = "still";
-//   }
-// });
-
-// $("img").on("click", function() {
-//   console.log($(this));
-//   animalGif.attr("src", results[i].images.fixed_height.url);
-//   console.log([i]);
-//   animalGif.attr("playstate", "animate");
-
-// animalGif.attr(onclick, change());
-// function change() {
-//   if ($("img").src == "results[i].images.fixed_height.url") {
-//     $("img").src = "results[i].images.fixed_height_still.url";
-//   } else {
-//     $("img").src == "results[i].images.fixed_height.url";
-//   }
-// }
