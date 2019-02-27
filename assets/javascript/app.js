@@ -89,6 +89,10 @@ function addJClickEvent() {
           animalGif.attr("playstate", "still");
           //setting the src attribute of the image to the property pulled off the results item
           animalGif.attr("src", results[i].images.fixed_height_still.url);
+          animalGif.attr("notmoving", results[i].images.fixed_height_still.url);
+          animalGif.attr("animate", results[i].images.fixed_height.url);
+          animalGif.addClass("gif");
+
           //Add rating to each newly created image
           ratingText.text("rating: " + results[i].rating);
           //
@@ -98,35 +102,49 @@ function addJClickEvent() {
           gifsDiv.append(animalGif);
           //prepending the gifsDiv to the HTML page in the "#gifs-display" div
           $("#gifs-display").prepend(ratingDiv, animalGif);
-          //adding onclick event to change source attribute from gif to still image
-          $("img").on("click", function() {
-            if ((this.playstate = "still")) {
-              console.log(this);
-              for (var i = 0; i < 10; i++) {
-                this.src = results[i].images.fixed_height.url;
-                this.playstate = "animate";
-                console.log(this.playstate);
-              }
+
+          //When any still gifs are clicked in #gifs-display, then they animate
+          $("#gifs-display").on("click", ".gif", function() {
+            console.log(this);
+            var state = $(this).attr("playstate");
+            if (state === "still") {
+              $(this).attr("src", $(this).attr("animate"));
+              $(this).attr("playstate", "animate");
             } else {
-              this.src = results[i].images.fixed_height_still.url;
-              this.playstate = "still";
+              $(this).attr("src", $(this).attr("notmoving"));
+              $(this).attr("playstate", "still");
             }
           });
+
+          // //adding onclick event to change source attribute from gif to still image
+          // $("img").on("click", function() {
+          //   if ((this.playstate = "still")) {
+          //     console.log(this);
+          //     for (var i = 0; i < 10; i++) {
+          //       this.src = results[i].images.fixed_height.url;
+          //       this.playstate = "animate";
+          //       console.log(this.playstate);
+          //     }
+          //   } else {
+          //     this.src = results[i].images.fixed_height_still.url;
+          //     this.playstate = "still";
+          //   }
+          // });
         }
       });
   });
 }
 
-$("img").on("click", function() {
-  if ((this.playstate = "still")) {
-    console.log(this);
-    this.src = results[i].images.fixed_height.url;
-    this.playstate = "animate";
-  } else {
-    this.src = results[i].images.fixed_height_still.url;
-    this.playstate = "still";
-  }
-});
+// $("img").on("click", function() {
+//   if ((this.playstate = "still")) {
+//     console.log(this);
+//     this.src = results[i].images.fixed_height.url;
+//     this.playstate = "animate";
+//   } else {
+//     this.src = results[i].images.fixed_height_still.url;
+//     this.playstate = "still";
+//   }
+// });
 
 // $("img").on("click", function() {
 //   console.log($(this));
